@@ -19,17 +19,17 @@ import com.example.labo2santiagoemile.viewmodel.TransactionViewModel
 fun TransactionDetailsScreen(
     transactionViewModel: TransactionViewModel,
     navController: NavController,
-    transactionId: Int? = null // L'ID de la transaction si l'on modifie une transaction existante
+    transactionId: Int? = null
 ) {
-    // État pour les champs de saisie
+
     var transactionTitle by remember { mutableStateOf("") }
     var transactionAmount by remember { mutableStateOf("") }
 
-    // Si l'ID de la transaction est fourni, nous sommes en mode "modifier"
+
     if (transactionId != null) {
         val transaction = transactionViewModel.transactions.find { it.id == transactionId }
         if (transaction != null) {
-            // Remplir les champs avec les données de la transaction
+
             transactionTitle = transaction.title
             transactionAmount = transaction.amount.toString()
         }
@@ -40,7 +40,7 @@ fun TransactionDetailsScreen(
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Champ pour le titre de la transaction
+
         TextField(
             value = transactionTitle,
             onValueChange = { transactionTitle = it },
@@ -50,7 +50,7 @@ fun TransactionDetailsScreen(
 
         Spacer(modifier = Modifier.height(8.dp))
 
-        // Champ pour le montant de la transaction
+
         TextField(
             value = transactionAmount,
             onValueChange = { transactionAmount = it },
@@ -60,24 +60,24 @@ fun TransactionDetailsScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Bouton pour enregistrer la transaction
+
         Button(
             onClick = {
                 if (transactionTitle.isNotBlank() && transactionAmount.isNotBlank()) {
                     val newTransaction = if (transactionId != null) {
-                        // Modifier la transaction existante
+
                         val updatedTransaction = transactionViewModel.transactions.find { it.id == transactionId }
                         updatedTransaction?.copy(
                             title = transactionTitle,
                             amount = transactionAmount.toDouble()
                         )
                     } else {
-                        // Ajouter une nouvelle transaction
+
                         Transaction(
                             id = transactionViewModel.transactions.size + 1,
                             title = transactionTitle,
                             amount = transactionAmount.toDouble(),
-                            date = "2025-02-20" // Remplacez par la date actuelle si nécessaire
+                            date = "2025-02-20"
                         )
                     }
 
@@ -89,7 +89,7 @@ fun TransactionDetailsScreen(
                         }
                     }
 
-                    // Retourner à l'écran de liste des transactions
+
                     navController.navigate("TransactionsListScreen") {
                         popUpTo("TransactionDetailsScreen") { inclusive = true }
                     }
