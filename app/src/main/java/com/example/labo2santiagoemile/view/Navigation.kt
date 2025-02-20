@@ -26,14 +26,15 @@ fun Navigation() {
     NavHost(navController, startDestination = if (authViewModel.isLoggedIn) "home" else "login") {
         composable("login") { LoginScreen(authViewModel, navController) }
         composable("home") { HomeScreen(authViewModel, navController) }
-        composable("TransactionsListScreen") { TransactionsListScreen(transactionViewModel, navController) }
-        composable("AddTransactionScreen/{transactionId}") { backStackEntry ->
+        composable("transactionsListScreen") { TransactionsListScreen(transactionViewModel, navController) }
+        composable("TransactionDetailsScreen") {
+            TransactionDetailsScreen(transactionViewModel, navController)
+        }
+        composable("TransactionDetailsScreen/{transactionId}") { backStackEntry ->
             val transactionId = backStackEntry.arguments?.getString("transactionId")?.toIntOrNull()
-            if (transactionId != null) {
-                AddTransactionScreen(transactionViewModel, navController)
-            } else {
-                Text("Transaction not found", modifier = Modifier.padding(16.dp))
-            }
+            TransactionDetailsScreen(transactionViewModel, navController, transactionId)
         }
     }
+
+
 }

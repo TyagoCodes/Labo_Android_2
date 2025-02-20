@@ -30,7 +30,7 @@ fun HomeScreen(authViewModel: AuthViewModel, navController: NavController) {
 
         Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
-        Button(onClick = { navController.navigate("AddTransactionScreen") }) {
+        Button(onClick = { navController.navigate("transactionsListScreen") }) {
             Text("Voir les Transactions")
         }
 

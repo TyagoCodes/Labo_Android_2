@@ -17,13 +17,26 @@ import com.example.labo2santiagoemile.viewmodel.TransactionViewModel
 
 @Composable
 fun TransactionsListScreen(transactionViewModel: TransactionViewModel, navController: NavController) {
-    Column {
+    Column(modifier = Modifier.padding(16.dp)) {
+        // Bouton pour ajouter une nouvelle transaction
+        Button(
+            onClick = {
+                // Navigate to TransactionDetailsScreen for adding a new transaction
+                navController.navigate("TransactionDetailsScreen")
+            },
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+        ) {
+            Text("Ajouter une transaction")
+        }
+
+        // Liste des transactions
         LazyColumn {
             items(transactionViewModel.transactions) { transaction ->
                 TransactionRow(
                     transaction = transaction,
                     onEditClick = {
-                        navController.navigate("transactionDetailsScreen/${transaction.id}")
+                        // Navigate to TransactionDetailsScreen with the transaction id to edit it
+                        navController.navigate("TransactionDetailsScreen/${transaction.id}")
                     },
                     onDeleteClick = {
                         transactionViewModel.deleteTransaction(transaction.id)
@@ -51,4 +64,3 @@ fun TransactionRow(transaction: Transaction, onEditClick: () -> Unit, onDeleteCl
         }
     }
 }
-
