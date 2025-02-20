@@ -35,5 +35,4 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         transactionRepository.saveTransactions(transactions)
     }
 
-
 }
