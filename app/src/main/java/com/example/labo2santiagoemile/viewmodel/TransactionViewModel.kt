@@ -36,10 +36,4 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
     }
 
 
-    fun toggleTransaction(transactionId: Int, isCompleted: Boolean) {
-        transactions = transactions.map {
-            if (it.id == transactionId) it.copy(isCompleted = isCompleted) else it
-        }
-        transactionRepository.saveTransactions(transactions)
-    }
 }
