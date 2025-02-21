@@ -41,6 +41,17 @@ fun TransactionDetailsScreen(
             .padding(16.dp)
     ) {
 
+
+        Button(
+            onClick = {
+
+                navController.navigate("transactionsListScreen")
+            },
+            modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp)
+        ) {
+            Text("Retourner")
+        }
+
         TextField(
             value = transactionTitle,
             onValueChange = { transactionTitle = it },
