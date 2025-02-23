@@ -35,4 +35,13 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         transactionRepository.saveTransactions(transactions)
     }
 
+    fun sortTransactionsByPrice(ascending: Boolean) {
+        transactions = if (ascending) {
+            transactions.sortedBy { it.amount }
+        } else {
+            transactions.sortedByDescending { it.amount }
+        }
+        transactionRepository.saveTransactions(transactions)
+    }
+
 }
