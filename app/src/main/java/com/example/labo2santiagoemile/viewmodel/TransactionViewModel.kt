@@ -3,7 +3,9 @@ package com.example.labo2santiagoemile.viewmodel
 import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.geometry.Size
 import androidx.lifecycle.AndroidViewModel
 import com.example.labo2santiagoemile.model.TransactionRepository
 import com.example.labo2santiagoemile.model.Transaction
@@ -35,11 +37,12 @@ class TransactionViewModel(application: Application) : AndroidViewModel(applicat
         transactionRepository.saveTransactions(transactions)
     }
 
-    fun sortTransactionsByPrice(ascending: Boolean) {
-        transactions = if (ascending) {
-            transactions.sortedBy { it.amount }
+    fun sortTransactionsByType(asc: Boolean) {
+        val listTypes = listOf("Depense", "Revenu")
+        transactions = if (asc) {
+            transactions.sortedBy { listTypes.indexOf(it.type) }
         } else {
-            transactions.sortedByDescending { it.amount }
+            transactions.sortedByDescending { listTypes.indexOf(it.type) }
         }
         transactionRepository.saveTransactions(transactions)
     }

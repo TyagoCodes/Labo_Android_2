@@ -17,6 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.labo2santiagoemile.model.Transaction
@@ -42,14 +43,14 @@ fun TransactionsListScreen(transactionViewModel: TransactionViewModel, navContro
         ) {
             Button(
                 onClick = {
-                    transactionViewModel.sortTransactionsByPrice(sortAscending)
+                    transactionViewModel.sortTransactionsByType(sortAscending)
                     sortAscending = !sortAscending
                 },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp)
             ) {
-                val label = if (sortAscending) "Sort Ascending" else "Sort Descending"
+                val label = if (sortAscending) "Sort by Spendings" else "Sort by Savings"
                 Text(label)
             }
 
@@ -93,22 +94,40 @@ fun TransactionsListScreen(transactionViewModel: TransactionViewModel, navContro
 
 @Composable
 fun TransactionRow(transaction: Transaction, onEditClick: () -> Unit, onDeleteClick: () -> Unit) {
+
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     ) {
         Text(transaction.title, modifier = Modifier.weight(1f))
-        Text("$${transaction.amount}", modifier = Modifier.weight(1f))
-
-        //transformer ceci en dropdown
-        Text(transaction.categorie, modifier = Modifier.weight(1f))
-        Text(transaction.type, modifier = Modifier.weight(1f))
-        Button(onClick = onEditClick) {
-            Text("Edit")
+        if(transaction.type == "Depense"){
+            Text("$${transaction.amount}",
+                modifier = Modifier.weight(1f),
+                color = Color.Red
+            )
+        }else if(transaction.type == "Revenu"){
+            Text("$${transaction.amount}",
+                modifier = Modifier.weight(1f),
+                color = Color.Green
+            )
         }
-        Button(onClick = onDeleteClick) {
-            Text("Delete")
+
+
+        Text(transaction.categorie, modifier = Modifier.weight(1f))
+        //fait bug le programme ma theorie cest parce que pas de place
+//        Text(transaction.date, modifier = Modifier.weight(1f))
+
+
+        Column(
+            modifier = Modifier
+        ) {
+            Button(onClick = onEditClick) {
+                Text("Details")
+            }
+            Button(onClick = onDeleteClick) {
+                Text("Delete")
+            }
         }
     }
 }
