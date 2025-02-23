@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.labo2santiagoemile.viewmodel.AuthViewModel
+import com.example.labo2santiagoemile.viewmodel.usernameGlob
 
 @Composable
 fun HomeScreen(authViewModel: AuthViewModel, navController: NavController) {
@@ -25,7 +26,7 @@ fun HomeScreen(authViewModel: AuthViewModel, navController: NavController) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
-        Text("Bienvenue dans le Gestionnaire de Dépenses", modifier = Modifier.padding(8.dp), fontSize = 28.sp)
+        Text("Bienvenue dans le Gestionnaire de Dépenses $usernameGlob", modifier = Modifier.padding(8.dp), fontSize = 28.sp)
 
         Spacer(modifier = Modifier.padding(vertical = 16.dp))
 
